@@ -63,6 +63,19 @@ func main() {
 	fmt.Println()
 	s1 := &student{Name: "fani", Grade: 4}
 	s1.getPropertiInfo()
+
+	// pengaksesan informasi method pada struct
+	fmt.Println()
+	s1 = &student{Name: "fani", Grade: 4}
+	fmt.Printf("nama\t: %s\n", s1.Name)
+
+	reflectValue3 := reflect.ValueOf(s1)
+	method := reflectValue3.MethodByName("SetName")
+	method.Call([]reflect.Value{
+		reflect.ValueOf("fanialfi"),
+	})
+
+	fmt.Printf("nama\t: %s\n", s1.Name)
 }
 
 // pengaksesan informasi properti variabel struct
@@ -70,6 +83,10 @@ func main() {
 type student struct {
 	Name  string
 	Grade uint8
+}
+
+func (s *student) SetName(name string) {
+	s.Name = name
 }
 
 func (s *student) getPropertiInfo() {
